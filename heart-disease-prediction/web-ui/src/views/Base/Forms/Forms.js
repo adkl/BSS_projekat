@@ -39,7 +39,7 @@ class Forms extends Component {
       exAngina: 1,
       stSegmentDepr: '',
       stSegmentDir: 1,
-      cal: 1,
+      cal: 0,
       hemoglobine: 1
     };
     this.onChange=this.onChange.bind(this);
