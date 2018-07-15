@@ -39,7 +39,7 @@ class Forms extends Component {
       exAngina: 1,
       stSegmentDepr: '',
       stSegmentDir: 1,
-      cal: 1,
+      cal: 0,
       hemoglobine: 1
     };
     this.onChange=this.onChange.bind(this);
@@ -90,10 +90,11 @@ class Forms extends Component {
       <div className="animated fadeIn">
         <SweetAlert
         isOpen={this.state.show}
-        title="Rezultati predikcije"
-        text={`Prema rezultatima, pacijent ${this.state.result} srcani bolesnik.`}
+        title={`Prema rezultatima, pacijent ${this.state.result} srcani bolesnik.`}
         confirmButtonText="Uredu"
+        text={""}
         type="info"
+        showCancelButton={false}
         callback={() => this.setState({ show: false })}
       />
         <Row>
