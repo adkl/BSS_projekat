@@ -90,10 +90,11 @@ class Forms extends Component {
       <div className="animated fadeIn">
         <SweetAlert
         isOpen={this.state.show}
-        title="Rezultati predikcije"
-        text={`Prema rezultatima, pacijent ${this.state.result} srcani bolesnik.`}
+        title={`Prema rezultatima, pacijent ${this.state.result} srcani bolesnik.`}
         confirmButtonText="Uredu"
+        text={""}
         type="info"
+        showCancelButton={false}
         callback={() => this.setState({ show: false })}
       />
         <Row>
