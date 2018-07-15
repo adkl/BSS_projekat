@@ -51,7 +51,7 @@ class Forms extends Component {
       <div className="animated fadeIn">
 
         <Row>
-          <Col xs="12" md="6">
+          <Col xs="12" md="10">
             <Card>
               <CardHeader>
                 <strong>Informacije o pacijentu</strong>
@@ -60,53 +60,150 @@ class Forms extends Component {
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Text Input</Label>
+                      <Label htmlFor="text-input">Starost pacijenta</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="Text" />
-                      <FormText color="muted">This is a help text</FormText>
+                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <FormText color="muted">Unesite broj godina</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Select</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select" name="select" id="select">
-                        <option value="0">Please select</option>
-                        <option value="1">Option #1</option>
-                        <option value="2">Option #2</option>
-                        <option value="3">Option #3</option>
-                      </Input>
-                    </Col>
-                  </FormGroup>
-
-
-
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label>Inline Radios</Label>
+                      <Label>Spol</Label>
                     </Col>
                     <Col md="9">
                       <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="option1" />
-                        <Label className="form-check-label" check htmlFor="inline-radio1">One</Label>
+                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
+                        <Label className="form-check-label" check htmlFor="inline-radio1">Musko</Label>
                       </FormGroup>
                       <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="option2" />
-                        <Label className="form-check-label" check htmlFor="inline-radio2">Two</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio3" name="inline-radios" value="option3" />
-                        <Label className="form-check-label" check htmlFor="inline-radio3">Three</Label>
+                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="0" />
+                        <Label className="form-check-label" check htmlFor="inline-radio2">Zensko</Label>
                       </FormGroup>
                     </Col>
                   </FormGroup>
-
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">Tip bola u grudima</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="select" id="select">
+                        <option value="1">Tipicna angina</option> tipicna kad se prenaporan
+                        <option value="2">Atipicna angina</option> i u miru i ponekad
+                        <option value="3">Ne-anginalni bol</option>
+                        <option value="4">Asimptomatski bol</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Krvni pritisak</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <FormText color="muted">mm Hg</FormText>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Holesterol</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <FormText color="muted">mg/dl</FormText>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">Izmjereni secer u krvi</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="select" id="select">
+                        <option value="0">Manji ili jednak 120 mg/dl</option>
+                        <option value="1">Veci od 120 mg/dl</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">Snimljeni EKG</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="select" id="select">
+                        <option value="0">Normalan</option>
+                        <option value="1">ST-T abnormalnost (inverzije T talasa ili nagli pad ili porast ST u okviru 0.05mV </option>
+                        <option value="2">Veci od 120 mg/dl</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Najveci srcani ritam</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <FormText color="muted">otk/min</FormText>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label>Vjezbama uzrokovana angina</Label>
+                    </Col>
+                    <Col md="9">
+                      <FormGroup check inline>
+                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
+                        <Label className="form-check-label" check htmlFor="inline-radio1">Da</Label>
+                      </FormGroup>
+                      <FormGroup check inline>
+                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="0" />
+                        <Label className="form-check-label" check htmlFor="inline-radio2">Ne</Label>
+                      </FormGroup>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="text-input">Pomak ST segmenta uzrokovana fizickom vjezbom</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <FormText color="muted">mV</FormText>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label>Nagib pomaka ST segmenta</Label>
+                    </Col>
+                    <Col md="9">
+                      <FormGroup check inline>
+                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
+                        <Label className="form-check-label" check htmlFor="inline-radio1">Rastuci</Label>
+                      </FormGroup>
+                      <FormGroup check inline>
+                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="2" />
+                        <Label className="form-check-label" check htmlFor="inline-radio2">Ravno</Label>
+                      </FormGroup>
+                      <FormGroup check inline>
+                        <Input className="form-check-input" type="radio" id="inline-radio3" name="inline-radios" value="3" />
+                        <Label className="form-check-label" check htmlFor="inline-radio3">Opadajuci</Label>
+                      </FormGroup>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">Thal</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="select" id="select">
+                        <option value="0">Normalan</option>
+                        <option value="1">ST-T abnormalnost (inverzije T talasa ili nagli pad ili porast ST u okviru 0.05mV </option>
+                        <option value="2">Veci od 120 mg/dl</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Pokreni algoritam</Button>
               </CardFooter>
             </Card>
           </Col>
