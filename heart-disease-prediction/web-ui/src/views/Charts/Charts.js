@@ -4,10 +4,10 @@ import { Card, CardBody, CardColumns, CardHeader } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 const line = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['0-20', '21-30', '31-45', '46-60', '61-70', '71-80', '80-'],
   datasets: [
     {
-      label: 'My First dataset',
+      label: '',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(75,192,192,0.4)',
@@ -25,92 +25,86 @@ const line = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40],
+      data: [65, 72, 100, 50, 73, 119, 30],
     },
   ],
 };
 
-const bar = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-  ],
-};
+// const bar = {
+//   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//   datasets: [
+//     {
+//       label: 'My First dataset',
+//       backgroundColor: 'rgba(255,99,132,0.2)',
+//       borderColor: 'rgba(255,99,132,1)',
+//       borderWidth: 1,
+//       hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+//       hoverBorderColor: 'rgba(255,99,132,1)',
+//       data: [65, 59, 80, 81, 56, 55, 40],
+//     },
+//   ],
+// };
 
 const doughnut = {
   labels: [
-    'Red',
-    'Green',
-    'Yellow',
+    'Zenski',
+    'Muski',
   ],
   datasets: [
     {
-      data: [300, 50, 100],
+      data: [300, 50,],
       backgroundColor: [
         '#FF6384',
         '#36A2EB',
-        '#FFCE56',
       ],
       hoverBackgroundColor: [
         '#FF6384',
         '#36A2EB',
-        '#FFCE56',
       ],
     }],
 };
 
-const radar = {
-  labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(179,181,198,0.2)',
-      borderColor: 'rgba(179,181,198,1)',
-      pointBackgroundColor: 'rgba(179,181,198,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(179,181,198,1)',
-      data: [65, 59, 90, 81, 56, 55, 40],
-    },
-    {
-      label: 'My Second dataset',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      pointBackgroundColor: 'rgba(255,99,132,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255,99,132,1)',
-      data: [28, 48, 40, 19, 96, 27, 100],
-    },
-  ],
-};
+// const radar = {
+//   labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+//   datasets: [
+//     {
+//       label: 'My First dataset',
+//       backgroundColor: 'rgba(179,181,198,0.2)',
+//       borderColor: 'rgba(179,181,198,1)',
+//       pointBackgroundColor: 'rgba(179,181,198,1)',
+//       pointBorderColor: '#fff',
+//       pointHoverBackgroundColor: '#fff',
+//       pointHoverBorderColor: 'rgba(179,181,198,1)',
+//       data: [65, 59, 90, 81, 56, 55, 40],
+//     },
+//     {
+//       label: 'My Second dataset',
+//       backgroundColor: 'rgba(255,99,132,0.2)',
+//       borderColor: 'rgba(255,99,132,1)',
+//       pointBackgroundColor: 'rgba(255,99,132,1)',
+//       pointBorderColor: '#fff',
+//       pointHoverBackgroundColor: '#fff',
+//       pointHoverBorderColor: 'rgba(255,99,132,1)',
+//       data: [28, 48, 40, 19, 96, 27, 100],
+//     },
+//   ],
+// };
 
 const pie = {
   labels: [
-    'Red',
-    'Green',
-    'Yellow',
+    'Da',
+    'Ne',
   ],
   datasets: [
     {
-      data: [300, 50, 100],
+      data: [300, 150],
       backgroundColor: [
         '#FF6384',
         '#36A2EB',
-        '#FFCE56',
       ],
       hoverBackgroundColor: [
         '#FF6384',
         '#36A2EB',
-        '#FFCE56',
       ],
     }],
 };
@@ -119,27 +113,45 @@ const polar = {
   datasets: [
     {
       data: [
-        11,
-        16,
-        7,
-        3,
-        14,
+        58,
+        75,
+        18,
+        92,
       ],
       backgroundColor: [
         '#FF6384',
         '#4BC0C0',
         '#FFCE56',
         '#E7E9ED',
-        '#36A2EB',
       ],
-      label: 'My dataset' // for legend
+      label: 'Tip bola u grudima' // for legend
     }],
   labels: [
-    'Red',
-    'Green',
-    'Yellow',
-    'Grey',
-    'Blue',
+    'Tipicna angina',
+    'Netipicna angina',
+    'Neanginalni bol',
+    'Asimptomatski',
+  ],
+};
+
+const polar2 = {
+  datasets: [
+    {
+      data: [
+        128,
+        77,
+      ],
+      backgroundColor: [
+        '#FF6384',
+        '#4BC0C0',
+        '#FFCE56',
+        '#E7E9ED',
+      ],
+      label: 'Tjelovjezbom uzrokovana angina' // for legend
+    }],
+  labels: [
+    'Da',
+    'Ne',
   ],
 };
 
@@ -156,39 +168,10 @@ class Charts extends Component {
     return (
       <div className="animated fadeIn">
         <CardColumns className="cols-2">
-          <Card>
+
+        <Card>
             <CardHeader>
-              Line Chart
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Line data={line} options={options} />
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardHeader>
-              Bar Chart
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Bar data={bar} options={options} />
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardHeader>
-              Doughnut Chart
+              Spol
               <div className="card-header-actions">
                 <a href="http://www.chartjs.org" className="card-header-action">
                   <small className="text-muted">docs</small>
@@ -202,38 +185,23 @@ class Charts extends Component {
             </CardBody>
           </Card>
           <Card>
-            <CardHeader>
-              Radar Chart
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Radar data={radar} />
-              </div>
-            </CardBody>
+          <CardHeader>
+            Podjela po godinama
+            <div className="card-header-actions">
+              <a href="http://www.chartjs.org" className="card-header-action">
+                <small className="text-muted">docs</small>
+              </a>
+            </div>
+          </CardHeader>
+          <CardBody>
+            <div className="chart-wrapper">
+              <Line data={line} options={options} />
+            </div>
+          </CardBody>
           </Card>
           <Card>
             <CardHeader>
-              Pie Chart
-              <div className="card-header-actions">
-                <a href="http://www.chartjs.org" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Pie data={pie} />
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardHeader>
-              Polar Area Chart
+            Tip bola u grudima
               <div className="card-header-actions">
                 <a href="http://www.chartjs.org" className="card-header-action">
                   <small className="text-muted">docs</small>
@@ -246,10 +214,76 @@ class Charts extends Component {
               </div>
             </CardBody>
           </Card>
-        </CardColumns>
-      </div>
+          <Card>
+            <CardHeader>
+            Tjelovjezbom uzrokovana angina
+              <div className="card-header-actions">
+                <a href="http://www.chartjs.org" className="card-header-action">
+                  <small className="text-muted">docs</small>
+                </a>
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="chart-wrapper">
+                <Polar data={polar2} options={options}/>
+              </div>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardHeader>
+              Kolicina secera u krvi nakon duzeg gladovanja > 120 mg/dl
+              <div className="card-header-actions">
+                <a href="http://www.chartjs.org" className="card-header-action">
+                  <small className="text-muted">docs</small>
+                </a>
+              </div>
+            </CardHeader>
+            <CardBody>
+              <div className="chart-wrapper">
+                <Pie data={pie} />
+              </div>
+            </CardBody>
+          </Card>
+ 
+         </CardColumns>
+       </div>
     );
   }
 }
 
 export default Charts;
+
+
+ 
+     //     <Card>
+      //       <CardHeader>
+      //         Bar Chart
+      //         <div className="card-header-actions">
+      //           <a href="http://www.chartjs.org" className="card-header-action">
+      //             <small className="text-muted">docs</small>
+      //           </a>
+      //         </div>
+      //       </CardHeader>
+      //       <CardBody>
+      //         <div className="chart-wrapper">
+      //           <Bar data={bar} options={options} />
+      //         </div>
+      //       </CardBody>
+      //     </Card>
+
+      //     <Card>
+      //       <CardHeader>
+      //         Radar Chart
+      //         <div className="card-header-actions">
+      //           <a href="http://www.chartjs.org" className="card-header-action">
+      //             <small className="text-muted">docs</small>
+      //           </a>
+      //         </div>
+      //       </CardHeader>
+      //       <CardBody>
+      //         <div className="chart-wrapper">
+      //           <Radar data={radar} />
+      //         </div>
+      //       </CardBody>
+      //     </Card>
+
