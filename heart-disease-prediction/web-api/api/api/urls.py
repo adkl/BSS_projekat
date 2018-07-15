@@ -17,9 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
-from predict_api.views import predict_heart_disease
+from predict_api.views import predict_heart_disease, get_csv
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'api/', predict_heart_disease)
+    url(r'api/', predict_heart_disease),
+    url(r'stats', get_csv)
 ]
