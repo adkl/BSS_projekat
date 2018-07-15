@@ -2,6 +2,7 @@ import React from 'react';
 import Loadable from 'react-loadable'
 
 import DefaultLayout from './containers/DefaultLayout';
+import {SpolnaStruktura, TUA, StarosnaStruktura, TBG, KolicinaSecera} from './views/Pages/index';
 
 function Loading() {
   return <div>Loading...</div>;
@@ -130,6 +131,11 @@ const User = Loadable({
 const routes = [
   { path: '/', exact: true, name: '', component: DefaultLayout },
   { path: '/dashboard', name: 'Pocetna', component: Dashboard },
+  { path: '/spolna-struktura', name: "SpolnaStruktura", component:SpolnaStruktura},
+  { path: '/tua', name: "TUA", component:TUA},
+  { path: '/starosna-struktura', name: "StarosnaStruktura", component:StarosnaStruktura},
+  { path: '/tbg', name: "TBG", component:TBG},
+  { path: '/kolicina-secera', name: "KolicinaSecera", component:KolicinaSecera},
   { path: '/base/forms', name: 'Prognoza bolesti', component: Forms },
   { path: '/notifications/alerts', name: 'Alerts', component: Alerts },
   { path: '/notifications/badges', name: 'Badges', component: Badges },
