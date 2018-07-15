@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import {
-  Badge,
   Button,
-  ButtonDropdown,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Col,
-  Collapse,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Fade,
   Form,
   FormGroup,
   FormText,
-  FormFeedback,
   Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Label,
   Row,
 } from 'reactstrap';
+
+const SweetAlert = require('react-swal')
+
 
 class Forms extends Component {
   constructor(props) {
@@ -32,10 +26,24 @@ class Forms extends Component {
     this.toggle = this.toggle.bind(this);
     this.toggleFade = this.toggleFade.bind(this);
     this.state = {
-      collapse: true,
-      fadeIn: true,
-      timeout: 300
+      show: false,
+      result: '',
+      age: '',
+      sex: 1,
+      chestPain: 0,
+      bloodPressure: '',
+      chol: '',
+      bloodSugar: 0,
+      ekgType: 0,
+      maxHeartRate: '',
+      exAngina: 1,
+      stSegmentDepr: '',
+      stSegmentDir: 1,
+      cal: 1,
+      hemoglobine: 1
     };
+    this.onChange=this.onChange.bind(this);
+    this.predict=this.predict.bind(this);
   }
 
   toggle() {
@@ -46,10 +54,48 @@ class Forms extends Component {
     this.setState((prevState) => { return { fadeIn: !prevState }});
   }
 
+  onChange(e) {
+    this.setState({[e.target.name]:e.target.value});
+  }
+
+  predict(e) {
+    let query_array = []
+
+    for (let key in this.state) {
+      if (key === "show" || key === "result") {
+      }
+      else if (typeof this.state[key] === 'string') {
+        query_array.push(parseFloat(this.state[key]))
+      }
+      else {
+        query_array.push(this.state[key])
+      }
+    }
+    console.log(query_array)
+    axios.get(`http://localhost:8000/api/predict-disease?patient=${query_array}`)
+        .then(response => {
+          console.log("response", response);
+          if (response.data.predictionResult === 0) {
+            this.setState({result:"nije", show:true})
+          }
+          else {
+            this.setState({result:"jeste", show:true})
+          }
+        })
+        .catch(err => alert(err))
+  }
+
   render() {
     return (
       <div className="animated fadeIn">
-
+        <SweetAlert
+        isOpen={this.state.show}
+        title="Rezultati predikcije"
+        text={`Prema rezultatima, pacijent ${this.state.result} srcani bolesnik.`}
+        confirmButtonText="Uredu"
+        type="info"
+        callback={() => this.setState({ show: false })}
+      />
         <Row>
           <Col xs="12" md="10">
             <Card>
@@ -60,36 +106,32 @@ class Forms extends Component {
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Starost pacijenta</Label>
+                      <Label htmlFor="age">Starost pacijenta</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <Input type="text" id="age" name="age" placeholder="" value={this.state.age} onChange={this.onChange} />
                       <FormText color="muted">Unesite broj godina</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label>Spol</Label>
+                      <Label htmlFor="sex">Spol</Label>
                     </Col>
-                    <Col md="9">
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
-                        <Label className="form-check-label" check htmlFor="inline-radio1">Musko</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="0" />
-                        <Label className="form-check-label" check htmlFor="inline-radio2">Zensko</Label>
-                      </FormGroup>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="sex" id="sex" value={this.state.sex} onChange={this.onChange}>
+                        <option value="1">Muski</option>
+                        <option value="0">Zenski</option>
+                      </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Tip bola u grudima</Label>
+                      <Label htmlFor="chestPain">Tip bola u grudima</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="select" name="select" id="select">
-                        <option value="1">Tipicna angina</option> tipicna kad se prenaporan
-                        <option value="2">Atipicna angina</option> i u miru i ponekad
+                      <Input type="select" name="chestPain" id="chestPain" value={this.state.chestPain} onChange={this.onChange}>
+                        <option value="1">Tipicna angina</option>
+                        <option value="2">Atipicna angina</option>
                         <option value="3">Ne-anginalni bol</option>
                         <option value="4">Asimptomatski bol</option>
                       </Input>
@@ -97,28 +139,28 @@ class Forms extends Component {
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Krvni pritisak</Label>
+                      <Label htmlFor="bloodPressure">Krvni pritisak</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <Input type="text" id="bloodPressure" name="bloodPressure" placeholder="" value={this.state.bloodPressure} onChange={this.onChange} />
                       <FormText color="muted">mm Hg</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Holesterol</Label>
+                      <Label htmlFor="chol">Holesterol</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <Input type="text" id="chol" name="chol" placeholder="" value={this.state.chol} onChange={this.onChange} />
                       <FormText color="muted">mg/dl</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Izmjereni secer u krvi</Label>
+                      <Label htmlFor="bloodSugar">Izmjereni secer u krvi</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="select" name="select" id="select">
+                      <Input type="select" name="bloodSugar" id="bloodSugar" value={this.state.bloodSugar} onChange={this.onChange}>
                         <option value="0">Manji ili jednak 120 mg/dl</option>
                         <option value="1">Veci od 120 mg/dl</option>
                       </Input>
@@ -126,252 +168,90 @@ class Forms extends Component {
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Snimljeni EKG</Label>
+                      <Label htmlFor="ekgType">Snimljeni EKG</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="select" name="select" id="select">
+                      <Input type="select" name="ekgType" id="ekgType" value={this.state.ekgType} onChange={this.onChange}>
                         <option value="0">Normalan</option>
-                        <option value="1">ST-T abnormalnost (inverzije T talasa ili nagli pad ili porast ST u okviru 0.05mV </option>
-                        <option value="2">Veci od 120 mg/dl</option>
+                        <option value="1">ST-T abnormalnost (inverzije T talasa ili devijacija ST veca od 0.05mV </option>
+                        <option value="2">Pokazuje znake hipertrofije lijeve komore</option>
                       </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Najveci srcani ritam</Label>
+                      <Label htmlFor="maxHeartRate">Najveci srcani ritam</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <Input type="text" id="maxHeartRate" name="maxHeartRate" placeholder="" value={this.state.maxHeartRate} onChange={this.onChange} />
                       <FormText color="muted">otk/min</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label>Vjezbama uzrokovana angina</Label>
+                      <Label htmlFor="exAngina">Vjezbama uzrokovana angina</Label>
                     </Col>
-                    <Col md="9">
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
-                        <Label className="form-check-label" check htmlFor="inline-radio1">Da</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="0" />
-                        <Label className="form-check-label" check htmlFor="inline-radio2">Ne</Label>
-                      </FormGroup>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="exAngina" id="exAngina" value={this.state.exAngina} onChange={this.onChange}>
+                        <option value="1">Da</option>
+                        <option value="0">Ne</option>
+                      </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="text-input">Pomak ST segmenta uzrokovana fizickom vjezbom</Label>
+                      <Label htmlFor="stSegmentDepr">Pomak ST segmenta uzrokovana fizickom vjezbom</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text" id="text-input" name="text-input" placeholder="" />
+                      <Input type="text" id="stSegmentDepr" name="stSegmentDepr" placeholder="" onChange={this.onChange} value={this.state.stSegmentDepr} />
                       <FormText color="muted">mV</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label>Nagib pomaka ST segmenta</Label>
+                      <Label htmlFor="stSegmentDir">Smjer pomaka ST segmenta</Label>
                     </Col>
-                    <Col md="9">
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="1" />
-                        <Label className="form-check-label" check htmlFor="inline-radio1">Rastuci</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="2" />
-                        <Label className="form-check-label" check htmlFor="inline-radio2">Ravno</Label>
-                      </FormGroup>
-                      <FormGroup check inline>
-                        <Input className="form-check-input" type="radio" id="inline-radio3" name="inline-radios" value="3" />
-                        <Label className="form-check-label" check htmlFor="inline-radio3">Opadajuci</Label>
-                      </FormGroup>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="stSegmentDir" id="stSegmentDir" value={this.state.stSegmentDir} onChange={this.onChange}>
+                        <option value="1">Porast</option>
+                        <option value="2">Bez promjene</option>
+                        <option value="3">Pad</option>
+                      </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="select">Thal</Label>
+                      <Label htmlFor="cal">Uvecanost krvnih sudova</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="select" name="select" id="select">
+                      <Input type="select" name="cal" id="cal" value={this.state.cal} onChange={this.onChange}>
                         <option value="0">Normalan</option>
-                        <option value="1">ST-T abnormalnost (inverzije T talasa ili nagli pad ili porast ST u okviru 0.05mV </option>
-                        <option value="2">Veci od 120 mg/dl</option>
+                        <option value="1">Malo uvecanje </option>
+                        <option value="2">Prilicno uvecanje</option>
+                        <option value="3">Veliko uvecanje</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="hemoglobine">Proizvodnja hemoglobina</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="hemoglobine" id="hemoglobine" value={this.state.hemoglobine} onChange={this.onChange}>
+                        <option value="3">Normalna</option>
+                        <option value="6">Stalni defekt </option>
+                        <option value="7">Povremeni defekt</option>
                       </Input>
                     </Col>
                   </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Pokreni algoritam</Button>
+                <Button onClick={event => this.predict(event)} type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Pokreni algoritam</Button>
               </CardFooter>
             </Card>
           </Col>
         </Row>
-        <Row>
-          <Col xs="12" sm="6">
-            <Card>
-              <CardHeader>
-                <strong>Validation feedback</strong> Form
-              </CardHeader>
-              <CardBody>
-                <FormGroup>
-                  <Label htmlFor="inputIsValid">Input is valid</Label>
-                  <Input type="text" valid id="inputIsValid" />
-                  <FormFeedback valid>Cool! Input is valid</FormFeedback>
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="inputIsInvalid">Input is invalid</Label>
-                  <Input type="text" invalid id="inputIsInvalid" />
-                  <FormFeedback>Houston, we have a problem...</FormFeedback>
-                </FormGroup>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6">
-            <Card>
-              <CardHeader>
-                <strong>Validation feedback</strong> Form
-              </CardHeader>
-              <CardBody>
-                <Form className="was-validated">
-                  <FormGroup>
-                    <Label htmlFor="inputSuccess2i">Non-required input</Label>
-                    <Input type="text" className="form-control-success" id="inputSuccess2i" />
-                    <FormFeedback valid>Non-required</FormFeedback>
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="inputWarning2i">Required input</Label>
-                    <Input type="text" className="form-control-warning" id="inputWarning2i" required />
-                    <FormFeedback className="help-block">Please provide a valid information</FormFeedback>
-                    <FormFeedback valid className="help-block">Input provided</FormFeedback>
-                  </FormGroup>
-                </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs="12" md="6">
-            <Card>
-              <CardHeader>
-                Use the grid for big devices!
-                <small><code>.col-lg-*</code> <code>.col-md-*</code> <code>.col-sm-*</code></small>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post" className="form-horizontal">
-                  <FormGroup row>
-                    <Col md="8">
-                      <Input type="text" placeholder=".col-md-8" />
-                    </Col>
-                    <Col md="4">
-                      <Input type="text" placeholder=".col-md-4" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="7">
-                      <Input type="text" placeholder=".col-md-7" />
-                    </Col>
-                    <Col md="5">
-                      <Input type="text" placeholder=".col-md-5" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="6">
-                      <Input type="text" placeholder=".col-md-6" />
-                    </Col>
-                    <Col md="6">
-                      <Input type="text" placeholder=".col-md-6" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="5">
-                      <Input type="text" placeholder=".col-md-5" />
-                    </Col>
-                    <Col md="7">
-                      <Input type="text" placeholder=".col-md-7" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="4">
-                      <Input type="text" placeholder=".col-md-4" />
-                    </Col>
-                    <Col md="8">
-                      <Input type="text" placeholder=".col-md-8" />
-                    </Col>
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="primary">Action</Button>
-                <Button size="sm" color="danger">Action</Button>
-                <Button size="sm" color="warning">Action</Button>
-                <Button size="sm" color="info">Action</Button>
-                <Button size="sm" color="success">Action</Button>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col xs="12" md="6">
-            <Card>
-              <CardHeader>
-                Input Grid for small devices!
-                <small><code>.col-*</code></small>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post" className="form-horizontal">
-                  <FormGroup row>
-                    <Col xs="4">
-                      <Input type="text" placeholder=".col-4" />
-                    </Col>
-                    <Col xs="8">
-                      <Input type="text" placeholder=".col-8" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs="5">
-                      <Input type="text" placeholder=".col-5" />
-                    </Col>
-                    <Col xs="7">
-                      <Input type="text" placeholder=".col-7" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs="6">
-                      <Input type="text" placeholder=".col-6" />
-                    </Col>
-                    <Col xs="6">
-                      <Input type="text" placeholder=".col-6" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs="7">
-                      <Input type="text" placeholder=".col-5" />
-                    </Col>
-                    <Col xs="5">
-                      <Input type="text" placeholder=".col-5" />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs="8">
-                      <Input type="text" placeholder=".col-8" />
-                    </Col>
-                    <Col xs="4">
-                      <Input type="text" placeholder=".col-4" />
-                    </Col>
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="primary">Action</Button>
-                <Button size="sm" color="danger">Action</Button>
-                <Button size="sm" color="warning">Action</Button>
-                <Button size="sm" color="info">Action</Button>
-                <Button size="sm" color="success">Action</Button>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
-
       </div>
     );
   }
